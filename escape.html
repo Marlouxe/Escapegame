@@ -344,7 +344,7 @@ function checkCafet() {
 // ===================== WAR ROOM =====================
 function checkWarroom() {
   const val = document.getElementById('warroom-input').value.trim().toLowerCase();
-  if (val === ANSWERS.warroom) {
+  if (val === ANSWERS.warroom.toLowerCase()) {
     document.getElementById('warroom-input').value = '';
     showSuccess('GO TO THE SHAKER! 🍹', 3);
   } else {
