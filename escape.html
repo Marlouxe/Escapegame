@@ -60,15 +60,15 @@
     <div class="riddle-location">📍 LOCATION : CAFET</div>
     <div class="riddle-instruction">GO TO THE CAFET</div>
 
-    <div class="code-grid">
+    <div class="code-grid" style="grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(2,1fr); gap:1rem; width:220px;">
       <input type="text" class="code-cell" id="cafet-d1" maxlength="1" inputmode="numeric"
-        oninput="moveFocus(this,'cafet-d2')" onkeydown="handleCodeKey(event,this,null,'cafet-d2')" />
+      oninput="moveFocus(this,'cafet-d2')" onkeydown="handleCodeKey(event,this,null,'cafet-d2')" />
       <input type="text" class="code-cell" id="cafet-d2" maxlength="1" inputmode="numeric"
-        oninput="moveFocus(this,'cafet-d3')" onkeydown="handleCodeKey(event,this,'cafet-d1','cafet-d3')" />
+      oninput="moveFocus(this,'cafet-d3')" onkeydown="handleCodeKey(event,this,'cafet-d1','cafet-d3')" />
       <input type="text" class="code-cell" id="cafet-d3" maxlength="1" inputmode="numeric"
-        oninput="moveFocus(this,'cafet-d4')" onkeydown="handleCodeKey(event,this,'cafet-d2','cafet-d4')" />
+      oninput="moveFocus(this,'cafet-d4')" onkeydown="handleCodeKey(event,this,'cafet-d2','cafet-d4')" />
       <input type="text" class="code-cell" id="cafet-d4" maxlength="1" inputmode="numeric"
-        oninput="checkCafetAuto()" onkeydown="handleCodeKey(event,this,'cafet-d3',null)" />
+      oninput="checkCafetAuto()" onkeydown="handleCodeKey(event,this,'cafet-d3',null)" />
     </div>
 
     <div class="hints-zone">
