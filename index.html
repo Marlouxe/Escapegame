@@ -44,6 +44,7 @@
       <button class="btn-answer" id="polybe-answer-btn" disabled onclick="showAnswer('polybe')">
         🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
       </button>
+      <div id="polybe-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
     </div>
 
     <button class="btn-primary" onclick="checkPolybe()">VALIDATE</button>
@@ -77,6 +78,7 @@
       <button class="btn-answer" id="cafet-answer-btn" disabled onclick="showAnswer('cafet')">
         🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
       </button>
+      <div id="cafet-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
     </div>
 
     <button class="btn-primary" onclick="checkCafet()">VALIDATE</button>
@@ -106,6 +108,7 @@
       <button class="btn-answer" id="warroom-answer-btn" disabled onclick="showAnswer('warroom')">
         🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
       </button>
+      <div id="warroom-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
     </div>
 
     <button class="btn-primary" onclick="checkWarroom()">VALIDATE</button>
@@ -178,7 +181,7 @@ const ANSWERS = {
   polybe:  '176ADMIN',
   cafet:   '-453|2834|263|-953',  // haut-gauche | haut-droite | bas-gauche | bas-droite
   warroom: 'happy birthday',
-  shaker:  null
+  shaker:  'Well done youve won look under the table near the door leading to the balcony'
 };
 
 // ===================== STATE =====================
