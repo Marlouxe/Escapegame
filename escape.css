@@ -124,7 +124,8 @@ body::after {
   text-transform: uppercase;
 }
 
-input[type="text"], input[type="password"] {
+/* INPUTS NORMAUX (pas les cases cafet) */
+input[type="text"]:not(.code-cell), input[type="password"] {
   width: 100%;
   background: rgba(0,240,255,0.05);
   border: 2px solid var(--neon-blue);
@@ -140,7 +141,7 @@ input[type="text"], input[type="password"] {
   box-shadow: 0 0 20px rgba(0,240,255,0.15), inset 0 0 20px rgba(0,240,255,0.05);
 }
 
-input[type="text"]:focus, input[type="password"]:focus {
+input[type="text"]:not(.code-cell):focus, input[type="password"]:focus {
   border-color: var(--neon-pink);
   box-shadow: 0 0 30px rgba(255,45,120,0.4), inset 0 0 20px rgba(255,45,120,0.1);
 }
@@ -320,14 +321,13 @@ input[type="text"]:focus, input[type="password"]:focus {
   letter-spacing: 0.05em;
 }
 
-/* 4-DIGIT CODE INPUT */
+/* CODE GRID */
 .code-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  width: 100%;
 }
 
+/* CASES DE LA CAFET */
 .code-cell {
   background: rgba(255,45,120,0.07);
   border: 3px solid rgba(255,45,120,0.5);
@@ -341,9 +341,9 @@ input[type="text"]:focus, input[type="password"]:focus {
   transition: all 0.3s;
   box-shadow: 0 0 15px rgba(255,45,120,0.15);
   caret-color: var(--neon-pink);
-  max-width: none;
   width: 100%;
-
+  padding: 1rem 0.5rem;
+  letter-spacing: 0.1em;
 }
 
 .code-cell:focus {
@@ -563,6 +563,6 @@ input[type="text"]:focus, input[type="password"]:focus {
 /* RESPONSIVE */
 @media (max-width: 480px) {
   .riddle-card { padding: 1.5rem; }
-  .code-cell { font-size: 1.4rem; }
+  .code-cell { font-size: 1rem; }
   #timer-display { min-width: 260px; font-size: 2.5rem; }
 }
