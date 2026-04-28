@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESCAPE GAME</title>
+  <link rel="stylesheet" href="escape.css" />
+</head>
+<body>
+
+<!-- ========== PAGE 1 : START ========== -->
+<div id="page-start" class="page active">
+  <div class="game-title">ESCAPE GAME</div>
+  <div class="subtitle">⚡ ARE YOU READY? ⚡</div>
+
+  <div class="team-input-wrapper">
+    <label for="team-name">ENTER YOUR TEAM NAME</label>
+    <input type="text" id="team-name" placeholder="TEAM NAME..." maxlength="30" />
+  </div>
+
+  <button class="btn-primary" onclick="startGame()">READY ?</button>
+</div>
+
+
+<!-- ========== PAGE 2 : POLYBE ========== -->
+<div id="page-polybe" class="page">
+
+  <div id="timer-display">20:00</div>
+
+  <div class="riddle-card">
+    <div class="riddle-location">📍 LOCATION : POLYBE</div>
+    <div class="riddle-instruction">FIND THE CODE</div>
+
+    <input type="text" id="polybe-input" placeholder="ENTER PASSWORD..." autocomplete="off"
+      onkeydown="if(event.key==='Enter') checkPolybe()" />
+
+    <div class="hints-zone">
+      <div class="hints-btns">
+        <button class="btn-hint" id="polybe-hint1-btn" onclick="useHint('polybe',1)">💡 HINT 1 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+        <button class="btn-hint" id="polybe-hint2-btn" onclick="useHint('polybe',2)">💡 HINT 2 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+      </div>
+      <div id="polybe-hint1-text" class="hint-text" style="display:none;">Double the value</div>
+      <div id="polybe-hint2-text" class="hint-text" style="display:none;">End is start</div>
+      <button class="btn-answer" id="polybe-answer-btn" disabled onclick="showAnswer('polybe')">
+        🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
+      </button>
+      <div id="polybe-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
+    </div>
+
+    <button class="btn-primary" onclick="checkPolybe()">VALIDATE</button>
+  </div>
+</div>
+
+
+<!-- ========== PAGE 3 : CAFET ========== -->
+<div id="page-cafet" class="page">
+
+  <div id="timer-display-2" class="timer-clone"></div>
+
+  <div class="riddle-card">
+    <div class="riddle-location">📍 LOCATION : CAFET</div>
+    <div class="riddle-instruction">FIND THE MATRICE</div>
+
+    <div class="code-grid" style="grid-template-columns: repeat(2,1fr); gap:1rem; width:320px;">
+      <input type="text" class="code-cell" id="cafet-d1" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d2" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d3" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d4" maxlength="10" placeholder="?" />
+    </div>
+
+    <div class="hints-zone">
+      <div class="hints-btns">
+        <button class="btn-hint" id="cafet-hint1-btn" onclick="useHint('cafet',1)">💡 HINT 1 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+        <button class="btn-hint" id="cafet-hint2-btn" onclick="useHint('cafet',2)">💡 HINT 2 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+      </div>
+      <div id="cafet-hint1-text" class="hint-text" style="display:none;">Look at the food</div>
+      <div id="cafet-hint2-text" class="hint-text" style="display:none;">You know how to matrice thanks to Samuel</div>
+      <button class="btn-answer" id="cafet-answer-btn" disabled onclick="showAnswer('cafet')">
+        🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
+      </button>
+      <div id="cafet-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
+    </div>
+
+    <button class="btn-primary" onclick="checkCafet()">VALIDATE</button>
+  </div>
+</div>
+
+
+<!-- ========== PAGE 4 : WAR ROOM ========== -->
+<div id="page-warroom" class="page">
+
+  <div id="timer-display-3" class="timer-clone"></div>
+
+  <div class="riddle-card">
+    <div class="riddle-location">📍 LOCATION : WAR ROOM</div>
+    <div class="riddle-instruction">FIND THE SENTENCE</div>
+
+    <input type="text" id="warroom-input" placeholder="ENTER PASSWORD..." autocomplete="off"
+      onkeydown="if(event.key==='Enter') checkWarroom()" />
+
+    <div class="hints-zone">
+      <div class="hints-btns">
+        <button class="btn-hint" id="warroom-hint1-btn" onclick="useHint('warroom',1)">💡 HINT 1 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+        <button class="btn-hint" id="warroom-hint2-btn" onclick="useHint('warroom',2)">💡 HINT 2 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+      </div>
+      <div id="warroom-hint1-text" class="hint-text" style="display:none;"><img src="image.jpeg" alt="Premier empereur" width="300" height="200"></div>
+      <div id="warroom-hint2-text" class="hint-text" style="display:none;">https://www.dcode.fr/chiffre-cesar</div>
+      <button class="btn-answer" id="warroom-answer-btn" disabled onclick="showAnswer('warroom')">
+        🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
+      </button>
+      <div id="warroom-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
+    </div>
+
+    <button class="btn-primary" onclick="checkWarroom()">VALIDATE</button>
+  </div>
+</div>
+
+
+<!-- ========== PAGE 5 : SHAKER (FINAL) ========== -->
+<div id="page-shaker" class="page">
+
+  <div id="timer-display-4" class="timer-clone"></div>
+
+  <div class="riddle-card">
+    <div class="riddle-location">📍 LOCATION : SHAKER</div>
+    <div class="riddle-instruction">LAST STEP — YOU'RE SO CLOSE!</div>
+
+    <div class="hints-zone">
+      <div class="hints-btns">
+        <button class="btn-hint" id="shaker-hint1-btn" onclick="useHint('shaker',1)">💡 HINT 1 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+        <button class="btn-hint" id="shaker-hint2-btn" onclick="useHint('shaker',2)">💡 HINT 2 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
+      </div>
+      <div id="shaker-hint1-text" class="hint-text" style="display:none;">Sometimes, the beginning is more important than the rest.</div>
+      <div id="shaker-hint2-text" class="hint-text" style="display:none;">Focus on how each word starts.</div>
+      <button class="btn-answer" id="shaker-answer-btn" disabled onclick="showAnswer('shaker')">
+        🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
+      </button>
+      <div id="shaker-answer-text" class="hint-text" style="display:none; color:#ff2d78;"></div>
+
+    </div>
+
+    <button class="btn-primary" style="font-size:1.8rem; padding:1.5rem 4rem; background:linear-gradient(135deg,#39ff14,#1a8c00); color:#000; box-shadow:0 0 40px rgba(57,255,20,0.6);"
+      onclick="finishGame()">🏁 FIND !</button>
+  </div>
+</div>
+
+
+<!-- ========== PAGE 6 : WIN ========== -->
+<div id="page-win" class="page">
+  <div class="win-title">🏆 ESCAPE COMPLETE 🏆</div>
+  <div class="win-team" id="win-team-name"></div>
+  <div class="win-time" id="win-time-display"></div>
+  <div class="subtitle" style="color:#fff; opacity:0.6; margin-top:1rem;">CONGRATULATIONS! YOU MADE IT!</div>
+</div>
+
+
+<!-- ========== PAGE 7 : GAME OVER ========== -->
+<div id="page-gameover" class="page">
+  <div class="gameover-text">⏱ TIME'S UP!</div>
+  <div class="gameover-text" style="font-size:clamp(1rem,3vw,2rem); margin-top:1rem; opacity:0.85;">
+    GO SEE THE GAME MASTERS,<br/>YOU BUNCH OF LOSERS 😂
+  </div>
+</div>
+
+
+<!-- ========== SUCCESS OVERLAY ========== -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-text">WELL DONE! 🎉</div>
+  <div class="success-next" id="success-next-text"></div>
+  <button class="btn-primary" onclick="nextStage()" id="success-continue-btn" style="margin-top:1rem;">CONTINUE →</button>
+</div>
+
+<!-- PARTICLES -->
+<div class="particles" id="particles"></div>
+
+
+<script>
+// ===================== CONFIG =====================
+// MODIFIE ICI LES REPONSES
+const ANSWERS = {
+  polybe:  '176ADMIN',
+  cafet:   '-453|2834|263|-953',  // haut-gauche | haut-droite | bas-gauche | bas-droite
+  warroom: 'happy birthday',
+  shaker:  'Well done youve won look under the table near the door leading to the balcony'
+};
+
+// ===================== STATE =====================
+let totalSeconds = 20 * 60;
+let timerInterval = null;
+let nextStageName = '';
+let hintUsed = {
+  polybe:  [false, false],
+  cafet:   [false, false],
+  warroom: [false, false],
+  shaker:  [false, false]
+};
+let teamName = 'TEAM';
+
+// ===================== TIMER =====================
+function startTimer() {
+  timerInterval = setInterval(() => {
+    totalSeconds--;
+    if (totalSeconds <= 0) {
+      totalSeconds = 0;
+      updateTimerDisplays();
+      clearInterval(timerInterval);
+      gameOver();
+      return;
+    }
+    updateTimerDisplays();
+  }, 1000);
+}
+
+function updateTimerDisplays() {
+  const m = Math.floor(totalSeconds / 60);
+  const s = totalSeconds % 60;
+  const str = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  document.querySelectorAll('[id^="timer-display"]').forEach(el => {
+    el.textContent = str;
+    el.classList.remove('warning', 'danger');
+    if (totalSeconds <= 60) el.classList.add('danger');
+    else if (totalSeconds <= 5 * 60) el.classList.add('warning');
+  });
+}
+
+function penaltySeconds(sec) {
+  totalSeconds = Math.max(0, totalSeconds - sec);
+  updateTimerDisplays();
+  flashPenalty();
+  if (totalSeconds === 0) { clearInterval(timerInterval); gameOver(); }
+}
+
+function flashPenalty() {
+  document.body.classList.add('penalty-flash');
+  setTimeout(() => document.body.classList.remove('penalty-flash'), 500);
+}
+
+// ===================== NAVIGATION =====================
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  updateTimerDisplays();
+}
+
+function startGame() {
+  teamName = document.getElementById('team-name').value.trim() || 'TEAM';
+  showPage('warroom');
+  startTimer();
+}
+
+// ===================== HINTS =====================
+function useHint(stage, num) {
+  const idx = num - 1;
+  if (hintUsed[stage][idx]) return;
+  hintUsed[stage][idx] = true;
+
+  const btn = document.getElementById(stage + '-hint' + num + '-btn');
+  btn.classList.add('used');
+  btn.disabled = true;
+
+  const textEl = document.getElementById(stage + '-hint' + num + '-text');
+  textEl.style.display = 'block';
+
+  penaltySeconds(10);
+
+  if (hintUsed[stage][0] && hintUsed[stage][1]) {
+    const ansBtn = document.getElementById(stage + '-answer-btn');
+    if (ansBtn) ansBtn.disabled = false;
+  }
+}
+
+function showAnswer(stage) {
+  penaltySeconds(60);
+  const answer = ANSWERS[stage];
+  if (answer) {
+    const el = document.getElementById(stage + '-answer-text');
+    if (el) {
+      el.textContent = '✅ ANSWER : ' + answer.toUpperCase();
+      el.style.display = 'block';
+    }
+  }
+}
+
+// ===================== SUCCESS =====================
+function showSuccess(nextText, stageIndex) {
+  nextStageName = stageIndex;
+  document.getElementById('success-next-text').textContent = nextText;
+  document.getElementById('success-overlay').classList.add('show');
+  spawnParticles();
+}
+
+function nextStage() {
+  document.getElementById('success-overlay').classList.remove('show');
+  const stages = ['warroom', 'polybe', 'cafet', 'shaker'];
+  showPage(stages[nextStageName]);
+}
+
+// ===================== POLYBE =====================
+function checkPolybe() {
+  const val = document.getElementById('polybe-input').value.trim().toUpperCase();
+  if (val === ANSWERS.polybe.toUpperCase()) {
+    document.getElementById('polybe-input').value = '';
+    showSuccess('GO TO THE CAFET! 🥤', 1);
+  } else {
+    penaltySeconds(10);
+    shakeEl(document.getElementById('polybe-input'));
+  }
+}
+
+// ===================== CAFET =====================
+function checkCafet() {
+  const d1 = document.getElementById('cafet-d1').value.trim();
+  const d2 = document.getElementById('cafet-d2').value.trim();
+  const d3 = document.getElementById('cafet-d3').value.trim();
+  const d4 = document.getElementById('cafet-d4').value.trim();
+  const code = d1 + '|' + d2 + '|' + d3 + '|' + d4;
+  if (code === ANSWERS.cafet) {
+    showSuccess('GO TO THE WAR ROOM! 🗺️', 2);
+  } else {
+    penaltySeconds(10);
+    ['cafet-d1', 'cafet-d2', 'cafet-d3', 'cafet-d4'].forEach(id => shakeEl(document.getElementById(id)));
+  }
+}
+
+// ===================== WAR ROOM =====================
+function checkWarroom() {
+  const val = document.getElementById('warroom-input').value.trim().toLowerCase();
+  if (val === ANSWERS.warroom.toLowerCase()) {
+    document.getElementById('warroom-input').value = '';
+    showSuccess('GO TO THE SHAKER! 🍹', 3);
+  } else {
+    penaltySeconds(10);
+    shakeEl(document.getElementById('warroom-input'));
+  }
+}
+
+// ===================== FINISH =====================
+function finishGame() {
+  clearInterval(timerInterval);
+  document.getElementById('win-team-name').textContent = teamName.toUpperCase();
+  document.getElementById('win-time-display').textContent =
+    '⏱ TIME LEFT : ' + String(Math.floor(totalSeconds / 60)).padStart(2, '0') + ':' + String(totalSeconds % 60).padStart(2, '0');
+  showPage('win');
+  spawnParticles();
+}
+
+// ===================== GAME OVER =====================
+function gameOver() {
+  showPage('gameover');
+}
+
+// ===================== PARTICLES =====================
+function spawnParticles() {
+  const container = document.getElementById('particles');
+  container.innerHTML = '';
+  const colors = ['#39ff14', '#ff2d78', '#00f0ff', '#ffe600', '#fff'];
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.top = '-20px';
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    p.style.width = (6 + Math.random() * 10) + 'px';
+    p.style.height = p.style.width;
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    p.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    p.style.animationDelay = (Math.random() * 1) + 's';
+    container.appendChild(p);
+  }
+  setTimeout(() => container.innerHTML = '', 4000);
+}
+
+// ===================== UTILS =====================
+function shakeEl(el) {
+  el.classList.remove('shake');
+  void el.offsetWidth;
+  el.classList.add('shake');
+  setTimeout(() => el.classList.remove('shake'), 400);
+}
+
+// Timer clones styling
+function syncTimerClones() {
+  document.querySelectorAll('.timer-clone').forEach(el => {
+    el.style.cssText = `
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(3rem, 10vw, 6rem);
+      font-weight: 900;
+      text-align: center;
+      color: var(--neon-green);
+      text-shadow: 0 0 20px rgba(57,255,20,0.8), 0 0 60px rgba(57,255,20,0.4);
+      letter-spacing: 0.05em;
+      padding: 0.5rem 2rem;
+      border: 3px solid rgba(57,255,20,0.3);
+      border-radius: 16px;
+      background: rgba(57,255,20,0.05);
+      min-width: 320px;
+      margin-bottom: 1rem;
+    `;
+  });
+  updateTimerDisplays();
+}
+
+window.addEventListener('load', syncTimerClones);
+</script>
+</body>
+</html>
