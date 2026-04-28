@@ -356,7 +356,7 @@ function checkWarroom() {
 // ===================== FINISH =====================
 function finishGame() {
   clearInterval(timerInterval);
-  const elapsed = 30 * 60 - totalSeconds;
+  const elapsed = 15 * 60 - totalSeconds;
   const em = Math.floor(elapsed / 60);
   const es = elapsed % 60;
   finalTime = String(em).padStart(2,'0') + ':' + String(es).padStart(2,'0');
