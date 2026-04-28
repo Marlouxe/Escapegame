@@ -266,7 +266,6 @@ function useHint(stage, num) {
   btn.disabled = true;
 
   const textEl = document.getElementById(stage + '-hint' + num + '-text');
-  textEl.textContent = HINTS[stage][idx];
   textEl.style.display = 'block';
 
   penaltySeconds(10);
