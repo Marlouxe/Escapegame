@@ -25,11 +25,11 @@
 <!-- ========== PAGE 2 : POLYBE ========== -->
 <div id="page-polybe" class="page">
 
-  <div id="timer-display">30:00</div>
+  <div id="timer-display">15:00</div>
 
   <div class="riddle-card">
     <div class="riddle-location">📍 LOCATION : POLYBE</div>
-    <div class="riddle-instruction">GO TO POLYBE</div>
+    <div class="riddle-instruction">FIND THE CODE</div>
 
     <input type="text" id="polybe-input" placeholder="ENTER PASSWORD..." autocomplete="off"
       onkeydown="if(event.key==='Enter') checkPolybe()" />
@@ -58,17 +58,13 @@
 
   <div class="riddle-card">
     <div class="riddle-location">📍 LOCATION : CAFET</div>
-    <div class="riddle-instruction">GO TO THE CAFET</div>
+    <div class="riddle-instruction">FIND THE MATRICE</div>
 
-    <div class="code-grid" style="grid-template-columns: repeat(2,1fr); grid-template-rows: repeat(2,1fr); gap:1rem; width:220px;">
-      <input type="text" class="code-cell" id="cafet-d1" maxlength="1" inputmode="numeric"
-      oninput="moveFocus(this,'cafet-d2')" onkeydown="handleCodeKey(event,this,null,'cafet-d2')" />
-      <input type="text" class="code-cell" id="cafet-d2" maxlength="1" inputmode="numeric"
-      oninput="moveFocus(this,'cafet-d3')" onkeydown="handleCodeKey(event,this,'cafet-d1','cafet-d3')" />
-      <input type="text" class="code-cell" id="cafet-d3" maxlength="1" inputmode="numeric"
-      oninput="moveFocus(this,'cafet-d4')" onkeydown="handleCodeKey(event,this,'cafet-d2','cafet-d4')" />
-      <input type="text" class="code-cell" id="cafet-d4" maxlength="1" inputmode="numeric"
-      oninput="checkCafetAuto()" onkeydown="handleCodeKey(event,this,'cafet-d3',null)" />
+    <div class="code-grid" style="grid-template-columns: repeat(2,1fr); gap:1rem; width:320px;">
+      <input type="text" class="code-cell" id="cafet-d1" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d2" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d3" maxlength="10" placeholder="?" />
+      <input type="text" class="code-cell" id="cafet-d4" maxlength="10" placeholder="?" />
     </div>
 
     <div class="hints-zone">
@@ -95,7 +91,7 @@
 
   <div class="riddle-card">
     <div class="riddle-location">📍 LOCATION : WAR ROOM</div>
-    <div class="riddle-instruction">GO TO THE WAR ROOM</div>
+    <div class="riddle-instruction">FIND THE SENTENCE</div>
 
     <input type="text" id="warroom-input" placeholder="ENTER PASSWORD..." autocomplete="off"
       onkeydown="if(event.key==='Enter') checkWarroom()" />
@@ -105,8 +101,8 @@
         <button class="btn-hint" id="warroom-hint1-btn" onclick="useHint('warroom',1)">💡 HINT 1 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
         <button class="btn-hint" id="warroom-hint2-btn" onclick="useHint('warroom',2)">💡 HINT 2 <span style="color:#ff2d78;font-size:0.7rem;">(-10s)</span></button>
       </div>
-      <div id="warroom-hint1-text" class="hint-text" style="display:none;"><!-- HINT 1 WAR ROOM --></div>
-      <div id="warroom-hint2-text" class="hint-text" style="display:none;"><!-- HINT 2 WAR ROOM --></div>
+      <div id="warroom-hint1-text" class="hint-text" style="display:none;"><img src="image.pnj" alt="Description" width="300" height="200"></div>
+      <div id="warroom-hint2-text" class="hint-text" style="display:none;">4</div>
       <button class="btn-answer" id="warroom-answer-btn" disabled onclick="showAnswer('warroom')">
         🔓 ANSWER <span style="font-size:0.7rem;">(-1min)</span>
       </button>
@@ -175,35 +171,25 @@
 
 <script>
 // ===================== CONFIG =====================
+// MODIFIE ICI LES REPONSES
 const ANSWERS = {
   polybe:  '176ADMIN',
-  cafet:   '<!-- CODE 4 CHIFFRES CAFET (ex: 4 2 7 3) -->'.replace(/<!--.*?-->/,'4273'), // CHANGER LE CODE 4 CHIFFRES ICI
+  cafet:   '293|-890|47|1205',  // haut-gauche | haut-droite | bas-gauche | bas-droite
   warroom: 'happy birthday',
   shaker:  null
 };
 
-const HINTS = {
-  polybe:  ['<!-- INDICE 1 POLYBE -->', '<!-- INDICE 2 POLYBE -->'],
-  cafet:   ['<!-- INDICE 1 CAFET -->', '<!-- INDICE 2 CAFET -->'],
-  warroom: ['<!-- INDICE 1 WAR ROOM -->', '<!-- INDICE 2 WAR ROOM -->'],
-  shaker:  ['<!-- INDICE 1 SHAKER -->', '<!-- INDICE 2 SHAKER -->']
-};
-
-const STAGE_ORDER = ['polybe','cafet','warroom','shaker'];
-
 // ===================== STATE =====================
-let totalSeconds = 30 * 60;
+let totalSeconds = 15 * 60;
 let timerInterval = null;
-let currentStage = 0;
 let nextStageName = '';
 let hintUsed = {
-  polybe:  [false,false],
-  cafet:   [false,false],
-  warroom: [false,false],
-  shaker:  [false,false]
+  polybe:  [false, false],
+  cafet:   [false, false],
+  warroom: [false, false],
+  shaker:  [false, false]
 };
 let teamName = 'TEAM';
-let finalTime = '';
 
 // ===================== TIMER =====================
 function startTimer() {
@@ -223,10 +209,10 @@ function startTimer() {
 function updateTimerDisplays() {
   const m = Math.floor(totalSeconds / 60);
   const s = totalSeconds % 60;
-  const str = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  const str = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
   document.querySelectorAll('[id^="timer-display"]').forEach(el => {
     el.textContent = str;
-    el.classList.remove('warning','danger');
+    el.classList.remove('warning', 'danger');
     if (totalSeconds <= 60) el.classList.add('danger');
     else if (totalSeconds <= 5 * 60) el.classList.add('warning');
   });
@@ -249,7 +235,6 @@ function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const pg = document.getElementById('page-' + id);
   if (pg) pg.classList.add('active');
-  // sync timer clones
   updateTimerDisplays();
 }
 
@@ -259,7 +244,7 @@ function startGame() {
   startTimer();
 }
 
-// ===================== HINT SYSTEM =====================
+// ===================== HINTS =====================
 function useHint(stage, num) {
   const idx = num - 1;
   if (hintUsed[stage][idx]) return;
@@ -270,12 +255,10 @@ function useHint(stage, num) {
   btn.disabled = true;
 
   const textEl = document.getElementById(stage + '-hint' + num + '-text');
-  textEl.textContent = HINTS[stage][idx];
   textEl.style.display = 'block';
 
   penaltySeconds(10);
 
-  // Unlock answer button if both hints used
   if (hintUsed[stage][0] && hintUsed[stage][1]) {
     const ansBtn = document.getElementById(stage + '-answer-btn');
     if (ansBtn) ansBtn.disabled = false;
@@ -284,9 +267,13 @@ function useHint(stage, num) {
 
 function showAnswer(stage) {
   penaltySeconds(60);
-  let answer = ANSWERS[stage];
+  const answer = ANSWERS[stage];
   if (answer) {
-    alert('THE ANSWER IS: ' + answer.toUpperCase());
+    const el = document.getElementById(stage + '-answer-text');
+    if (el) {
+      el.textContent = '✅ ANSWER : ' + answer.toUpperCase();
+      el.style.display = 'block';
+    }
   }
 }
 
@@ -300,14 +287,14 @@ function showSuccess(nextText, stageIndex) {
 
 function nextStage() {
   document.getElementById('success-overlay').classList.remove('show');
-  const stages = ['polybe','cafet','warroom','shaker'];
+  const stages = ['polybe', 'cafet', 'warroom', 'shaker'];
   showPage(stages[nextStageName]);
 }
 
 // ===================== POLYBE =====================
 function checkPolybe() {
   const val = document.getElementById('polybe-input').value.trim().toUpperCase();
-  if (val === ANSWERS.polybe) {
+  if (val === ANSWERS.polybe.toUpperCase()) {
     document.getElementById('polybe-input').value = '';
     showSuccess('GO TO THE CAFET! 🥤', 1);
   } else {
@@ -317,50 +304,24 @@ function checkPolybe() {
 }
 
 // ===================== CAFET =====================
-function moveFocus(el, nextId) {
-  if (el.value.length === 1 && nextId) {
-    document.getElementById(nextId).focus();
-  }
-}
-
-function handleCodeKey(e, el, prevId, nextId) {
-  if (e.key === 'Backspace' && el.value === '' && prevId) {
-    document.getElementById(prevId).focus();
-  }
-  if (e.key === 'Enter') checkCafet();
-}
-
-function checkCafetAuto() {
-  const d1 = document.getElementById('cafet-d1').value;
-  const d2 = document.getElementById('cafet-d2').value;
-  const d3 = document.getElementById('cafet-d3').value;
-  const d4 = document.getElementById('cafet-d4').value;
-  if (d1 && d2 && d3 && d4) checkCafet();
-}
-
 function checkCafet() {
-  const code =
-    document.getElementById('cafet-d1').value +
-    document.getElementById('cafet-d2').value +
-    document.getElementById('cafet-d3').value +
-    document.getElementById('cafet-d4').value;
+  const d1 = document.getElementById('cafet-d1').value.trim();
+  const d2 = document.getElementById('cafet-d2').value.trim();
+  const d3 = document.getElementById('cafet-d3').value.trim();
+  const d4 = document.getElementById('cafet-d4').value.trim();
+  const code = d1 + '|' + d2 + '|' + d3 + '|' + d4;
   if (code === ANSWERS.cafet) {
     showSuccess('GO TO THE WAR ROOM! 🗺️', 2);
   } else {
     penaltySeconds(10);
-    ['cafet-d1','cafet-d2','cafet-d3','cafet-d4'].forEach(id => {
-      const el = document.getElementById(id);
-      el.value = '';
-      shakeEl(el);
-    });
-    document.getElementById('cafet-d1').focus();
+    ['cafet-d1', 'cafet-d2', 'cafet-d3', 'cafet-d4'].forEach(id => shakeEl(document.getElementById(id)));
   }
 }
 
 // ===================== WAR ROOM =====================
 function checkWarroom() {
   const val = document.getElementById('warroom-input').value.trim().toLowerCase();
-  if (val === ANSWERS.warroom) {
+  if (val === ANSWERS.warroom.toLowerCase()) {
     document.getElementById('warroom-input').value = '';
     showSuccess('GO TO THE SHAKER! 🍹', 3);
   } else {
@@ -372,13 +333,9 @@ function checkWarroom() {
 // ===================== FINISH =====================
 function finishGame() {
   clearInterval(timerInterval);
-  const elapsed = 30 * 60 - totalSeconds;
-  const em = Math.floor(elapsed / 60);
-  const es = elapsed % 60;
-  finalTime = String(em).padStart(2,'0') + ':' + String(es).padStart(2,'0');
   document.getElementById('win-team-name').textContent = teamName.toUpperCase();
   document.getElementById('win-time-display').textContent =
-    '⏱ TIME : ' + String(Math.floor(totalSeconds/60)).padStart(2,'0') + ':' + String(totalSeconds%60).padStart(2,'0') + ' LEFT';
+    '⏱ TIME LEFT : ' + String(Math.floor(totalSeconds / 60)).padStart(2, '0') + ':' + String(totalSeconds % 60).padStart(2, '0');
   showPage('win');
   spawnParticles();
 }
@@ -392,7 +349,7 @@ function gameOver() {
 function spawnParticles() {
   const container = document.getElementById('particles');
   container.innerHTML = '';
-  const colors = ['#39ff14','#ff2d78','#00f0ff','#ffe600','#fff'];
+  const colors = ['#39ff14', '#ff2d78', '#00f0ff', '#ffe600', '#fff'];
   for (let i = 0; i < 60; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
@@ -417,15 +374,9 @@ function shakeEl(el) {
   setTimeout(() => el.classList.remove('shake'), 400);
 }
 
-// Sync timer clones with main display on page change
+// Timer clones styling
 function syncTimerClones() {
-  const main = document.getElementById('timer-display');
-  if (!main) return;
   document.querySelectorAll('.timer-clone').forEach(el => {
-    el.id = el.id || '';
-    el.className = main.className + ' timer-clone';
-    el.textContent = main.textContent;
-    // copy font styles
     el.style.cssText = `
       font-family: 'Orbitron', monospace;
       font-size: clamp(3rem, 10vw, 6rem);
@@ -433,7 +384,6 @@ function syncTimerClones() {
       text-align: center;
       color: var(--neon-green);
       text-shadow: 0 0 20px rgba(57,255,20,0.8), 0 0 60px rgba(57,255,20,0.4);
-      animation: timerPulse 1s ease-in-out infinite;
       letter-spacing: 0.05em;
       padding: 0.5rem 2rem;
       border: 3px solid rgba(57,255,20,0.3);
@@ -443,9 +393,9 @@ function syncTimerClones() {
       margin-bottom: 1rem;
     `;
   });
+  updateTimerDisplays();
 }
 
-// On load, style the timer clones
 window.addEventListener('load', syncTimerClones);
 </script>
 </body>
